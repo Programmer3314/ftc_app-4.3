@@ -55,7 +55,7 @@ import com.qualcomm.robotcore.util.Range;
 public class FirstOpMode extends MyRobot
 {
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
+
 
 
     /*
@@ -64,36 +64,33 @@ public class FirstOpMode extends MyRobot
     @Override
     public void OpModeInit() {
 
-        telemetry.addData("Status", "Initialized");
 
-        // Tell the driver that initialization is complete.
-        telemetry.addData("Status", "Initialized");
     }
 
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
      */
     @Override
-    public void init_loop() {
+    public void OpModeInit_loop() {
     }
 
     /*
      * Code to run ONCE when the driver hits PLAY
      */
     @Override
-    public void start() {
-        runtime.reset();
+    public void OpModeStart() {
+
     }
 
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
     @Override
-    public void loop() {
+    public void OpModeLoop() {
         // Setup a variable for each drive wheel to save power level for telemetry
         double leftPower;
         double rightPower;
-
+        runtime.reset();
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
 
@@ -101,30 +98,23 @@ public class FirstOpMode extends MyRobot
         // - This uses basic math to combine motions and is easier to drive straight.
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
-        leftPower    = Range.clip(drive - turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive + turn, -1.0, 1.0) ;
-
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
         // leftPower  = -gamepad1.left_stick_y ;
         // rightPower = -gamepad1.right_stick_y ;
 
         // Send calculated power to wheels
-        frontLeftDrive.setPower(leftPower);
-        frontRightDrive.setPower(rightPower);
-        backLeftDrive.setPower(leftPower);
-        backRightDrive.setPower(rightPower);
-
+                                            train1.move(turn, drive);
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+
     }
 
     /*
      * Code to run ONCE after the driver hits STOP
      */
     @Override
-    public void stop() {
+    public void OpModeStop() {
     }
 
 }
