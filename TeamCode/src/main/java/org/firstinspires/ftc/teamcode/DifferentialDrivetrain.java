@@ -25,13 +25,13 @@ public class DifferentialDrivetrain {
             rightMotors.add(someMotor);
         }
     }
-    public void move(double turn, double forward ){
+    public void move( MoveParameter mP ){
         double leftPower;
         double rightPower;
 
 
-        leftPower = Range.clip(forward - turn, -1.0, 1.0) ;
-        rightPower = Range.clip(forward + turn, -1.0, 1.0) ;
+        leftPower = Range.clip(mP.forward - mP.turn, -1.0, 1.0) ;
+        rightPower = Range.clip(mP.forward + mP.turn, -1.0, 1.0) ;
 
         for(DcMotor M: leftMotors){
             M.setPower(leftPower);
