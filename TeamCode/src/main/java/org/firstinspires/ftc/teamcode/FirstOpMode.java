@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -57,7 +58,8 @@ public class FirstOpMode extends MyRobot
     public MoveParameter moveParam = new MoveParameter();
     // Declare OpMode members.
 
-
+    public DcMotorEx leftClawMotor, rightClawMotor;
+    // -5 = start position, 6 = closed, -30 = opened
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -65,9 +67,25 @@ public class FirstOpMode extends MyRobot
     @Override
     public void OpModeInit() {
 
+        leftClawMotor = HMap.get(DcMotorEx.class, "LClawMotor");
+        rightClawMotor = HMap.get(DcMotorEx.class, "RClawMotor");
+
+        leftClawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        rightClawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+        leftClawMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftClawMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        leftClawMotor.setTargetPosition(0);
+        leftClawMotor.setPower(0.3);
+
+        rightClawMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightClawMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        rightClawMotor.setTargetPosition(0);
+        rightClawMotor.setPower(0.3);
 
     }
-
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
      */
@@ -104,11 +122,30 @@ public class FirstOpMode extends MyRobot
 
         // Send calculated power to wheels
         moveParam.strafe = -gamepad1.left_stick_x;
-        moveParam.forward = -gamepad1.left_stick_y;
+        moveParam.forward = gamepad1.left_stick_y;
         moveParam.turn = gamepad1.right_stick_x;
 
         train1.move(moveParam);
 
+        if(gamepad1.a){
+            leftClawMotor.setTargetPosition(11);
+            leftClawMotor.setPower(0.3);
+
+            rightClawMotor.setTargetPosition(-11);
+            rightClawMotor.setPower(0.3);
+
+            
+        }
+        if(gamepad1.b){
+            leftClawMotor.setTargetPosition(-30);
+            leftClawMotor.setPower(0.3);
+
+            rightClawMotor.setTargetPosition(30);
+            rightClawMotor.setPower(0.3);
+        }
+
+        telemetry.addData("LClawMotorPosition", leftClawMotor.getCurrentPosition());
+        telemetry.addData("RClawMotorPosition", rightClawMotor.getCurrentPosition());
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
