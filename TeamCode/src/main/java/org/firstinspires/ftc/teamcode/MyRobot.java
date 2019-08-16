@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public abstract class MyRobot extends AllRobots {
     public DifferentialDrivetrain train1;
+    public Claws claw1;
 
 
 //    public DcMotor frontLeftDrive = null;
@@ -27,6 +28,9 @@ public abstract class MyRobot extends AllRobots {
 //        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
 //        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
         train1 = new DifferentialDrivetrain("frontLeftMotor", "backLeftMotor", "frontRightMotor", "backRightMotor");
+        claw1 = new Claws("LClawMotor", "RClawMotor", 11, -30);
+
+        claw1.StartUp();
         OpModeInit();
     }
 
@@ -39,19 +43,25 @@ public abstract class MyRobot extends AllRobots {
     public abstract void OpModeInit_loop();
 
     public void MyRobotLoop(){
+
         OpModeLoop();
+        claw1.Update();
     }
     public abstract void OpModeLoop();
 
     public void MyRobotStart(){
+
         OpModeStart();
     }
     public abstract void OpModeStart();
 
     public void MyRobotStop(){
+
         OpModeStop();
     }
     public abstract void OpModeStop();
+
+
 
 
 }

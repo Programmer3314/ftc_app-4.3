@@ -4,14 +4,19 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public abstract class AllRobots extends OpMode {
 
     protected ElapsedTime runtime = new ElapsedTime();
     public static HardwareMap HMap;
+    public static Telemetry tele;
 
     public final void init(){
 
         telemetry.addData("Status", "Initializing");
+        tele = telemetry;
+
         HMap = hardwareMap;
         MyRobotInit();
 

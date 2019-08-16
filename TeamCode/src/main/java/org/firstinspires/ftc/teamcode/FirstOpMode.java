@@ -1,4 +1,4 @@
-/* Copyright (c) 2017 FIRST. All rights reserved.
+/* Copyright (close) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted (subject to the limitations in the disclaimer below) provided that
@@ -58,7 +58,7 @@ public class FirstOpMode extends MyRobot
     public MoveParameter moveParam = new MoveParameter();
     // Declare OpMode members.
 
-    public DcMotorEx leftClawMotor, rightClawMotor;
+    //public DcMotorEx leftClawMotor, rightClawMotor;
     // -5 = start position, 6 = closed, -30 = opened
 
     /*
@@ -66,24 +66,6 @@ public class FirstOpMode extends MyRobot
      */
     @Override
     public void OpModeInit() {
-
-        leftClawMotor = HMap.get(DcMotorEx.class, "LClawMotor");
-        rightClawMotor = HMap.get(DcMotorEx.class, "RClawMotor");
-
-        leftClawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        rightClawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
-        leftClawMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftClawMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        leftClawMotor.setTargetPosition(0);
-        leftClawMotor.setPower(0.3);
-
-        rightClawMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightClawMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        rightClawMotor.setTargetPosition(0);
-        rightClawMotor.setPower(0.3);
 
     }
     /*
@@ -128,27 +110,16 @@ public class FirstOpMode extends MyRobot
         train1.move(moveParam);
 
         if(gamepad1.a){
-            leftClawMotor.setTargetPosition(11);
-            leftClawMotor.setPower(0.3);
-
-            rightClawMotor.setTargetPosition(-11);
-            rightClawMotor.setPower(0.3);
-
-            
+            claw1.CloseClaws();
         }
+
         if(gamepad1.b){
-            leftClawMotor.setTargetPosition(-30);
-            leftClawMotor.setPower(0.3);
-
-            rightClawMotor.setTargetPosition(30);
-            rightClawMotor.setPower(0.3);
+           claw1.OpenClaws();
         }
-
-        telemetry.addData("LClawMotorPosition", leftClawMotor.getCurrentPosition());
-        telemetry.addData("RClawMotorPosition", rightClawMotor.getCurrentPosition());
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.addData("LeftMotor Encoder Value", "Encoder " + Double.toString(train1.getEncoderValue()));
 
     }
 

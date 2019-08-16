@@ -24,6 +24,8 @@ public class DifferentialDrivetrain {
             someMotor.setDirection(REVERSE);
             rightMotors.add(someMotor);
         }
+        leftMotors.get(0).setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftMotors.get(0).setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
     public void move( MoveParameter mP ){
         double leftPower;
@@ -40,6 +42,9 @@ public class DifferentialDrivetrain {
         for(DcMotor M: rightMotors){
             M.setPower(rightPower);
         }
+    }
 
+    public double getEncoderValue(){
+        return leftMotors.get(0).getCurrentPosition();
     }
 }
