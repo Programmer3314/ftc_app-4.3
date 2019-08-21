@@ -62,4 +62,15 @@ public class Claws {
         tele.addData("RClawMotorPosition", rightClawMotor.getCurrentPosition());
     }
 
+    public boolean isClosed(){
+        return (Math.abs(leftClawMotor.getCurrentPosition() - close) <= 5)
+                &&
+                (Math.abs(rightClawMotor.getCurrentPosition() + close) <= 5);
+    }
+
+    public boolean isOpened(){
+        return (Math.abs(leftClawMotor.getCurrentPosition() - open) <= 5)
+                &&
+                (Math.abs(rightClawMotor.getCurrentPosition() + open) <= 5);
+    }
 }

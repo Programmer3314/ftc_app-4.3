@@ -37,6 +37,7 @@ public abstract class AllRobots extends OpMode {
     public abstract void MyRobotLoop();
 
     public final void start(){
+        runtime.reset();
         MyRobotStart();
     }
     public abstract void MyRobotStart();

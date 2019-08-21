@@ -37,6 +37,11 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -56,6 +61,7 @@ import com.qualcomm.robotcore.util.Range;
 public class FirstOpMode extends MyRobot
 {
     public MoveParameter moveParam = new MoveParameter();
+    public Orientation angles;
     // Declare OpMode members.
 
     //public DcMotorEx leftClawMotor, rightClawMotor;
@@ -91,7 +97,7 @@ public class FirstOpMode extends MyRobot
         // Setup a variable for each drive wheel to save power level for telemetry
         double leftPower;
         double rightPower;
-        runtime.reset();
+        angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
 
@@ -120,6 +126,7 @@ public class FirstOpMode extends MyRobot
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("LeftMotor Encoder Value", "Encoder " + Double.toString(train1.getEncoderValue()));
+        telemetry.addData("XXX", "heading: " + angles.firstAngle);
 
     }
 
