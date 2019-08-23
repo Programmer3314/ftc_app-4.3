@@ -109,10 +109,10 @@ public class FirstOpMode extends MyRobot
         // rightPower = -gamepad1.right_stick_y ;
 
         // Send calculated power to wheels
-        moveParam.strafe = -gamepad1.left_stick_x;
-        moveParam.forward = gamepad1.left_stick_y;
-        moveParam.turn = gamepad1.right_stick_x;
-
+        moveParam.strafe = -gamepad1.left_stick_x *30;
+        moveParam.forward = gamepad1.left_stick_y *30;
+        moveParam.turn = gamepad1.right_stick_x *30;
+        moveParam.mode = MoveParameter.Modes.Velocity;
         train1.move(moveParam);
 
         if(gamepad1.a){
