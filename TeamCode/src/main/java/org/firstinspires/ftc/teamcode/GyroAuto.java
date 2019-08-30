@@ -43,7 +43,7 @@ public class GyroAuto extends MyRobot {
             case FOWARD1:
                 mp.forward = 0.1;
                 train1.move(mp);
-                if(train1.getEncoderValue() <= -1200){
+                if(train1.getRawEncoderValue() <= -1200){
                     currentState = States.GRAB;
                 }
                 break;
@@ -67,7 +67,7 @@ public class GyroAuto extends MyRobot {
                 mp.turn = 0;
                 mp.forward = 0.1;
                 train1.move(mp);
-                if(train1.getEncoderValue() <= -2400){
+                if(train1.getRawEncoderValue() <= -2400){
                     currentState = States.DROP;
                 }
                 break;

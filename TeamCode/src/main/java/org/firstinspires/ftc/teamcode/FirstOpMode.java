@@ -29,13 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -60,7 +54,6 @@ public class FirstOpMode extends MyRobot
         forward = new JoystickAxis(JoystickAxis.Axis.leftY, gamepad1).setScale(-10);
         turn = new JoystickAxis(JoystickAxis.Axis.rightX, gamepad1).setScale(-10);
         strafe = new JoystickAxis(JoystickAxis.Axis.leftX, gamepad1).setScale(-10);
-
 
     }
     /*
@@ -106,7 +99,7 @@ public class FirstOpMode extends MyRobot
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("LeftMotor Encoder Value", "Encoder " + Double.toString(train1.getEncoderValue()));
+        telemetry.addData("LeftMotor Encoder Value", "Encoder " + Double.toString(train1.getRawEncoderValue()));
         telemetry.addData("XXX", "heading: " + angles.firstAngle);
 
     }

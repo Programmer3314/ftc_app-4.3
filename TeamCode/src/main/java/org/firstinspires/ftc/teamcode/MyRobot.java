@@ -16,22 +16,9 @@ public abstract class MyRobot extends AllRobots {
 //    public DcMotor backLeftDrive = null;
 
     public void MyRobotInit(){
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
-//        frontLeftDrive  = hardwareMap.get(DcMotor.class, "frontLeftMotor");
-//        frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightMotor");
-//        backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftMotor");
-//        backRightDrive = hardwareMap.get(DcMotor.class, "backRightMotor");
-
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-//        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-//        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
-//        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-//        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
         train1 = new DifferentialDrivetrain("frontLeftMotor", "backLeftMotor", "frontRightMotor", "backRightMotor")
-                .setPowerScale(-1,-1,-1);
+                .setPowerScale(1,1,1)
+                .setVelocityScale(-.56444, -.56444, -.56444);
         claw1 = new Claws("LClawMotor", "RClawMotor", 11, -30);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -47,6 +34,7 @@ public abstract class MyRobot extends AllRobots {
         // and named "imu".
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
+        train1.setTicksPerInch(-100);
 
         claw1.StartUp();
         OpModeInit();

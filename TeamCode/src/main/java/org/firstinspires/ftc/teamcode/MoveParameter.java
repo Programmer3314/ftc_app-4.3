@@ -5,6 +5,10 @@ public class MoveParameter {
     public double forward;
     public double strafe;
 
+    public enum Modes{
+        Power, Velocity, Distance
+    }
+    public Modes mode = Modes.Power;
 
 }
 

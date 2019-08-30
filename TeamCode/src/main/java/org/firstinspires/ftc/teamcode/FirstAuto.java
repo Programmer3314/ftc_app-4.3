@@ -20,14 +20,15 @@ public class FirstAuto extends MyRobot {
 
     @Override
     public void OpModeLoop() {
-        telemetry.addData("LeftMotor Encoder Value", "Encoder " + Double.toString(train1.getEncoderValue()));
+        telemetry.addData("Motors Encoder Value In Inches ", "Encoder: " + Double.toString(train1.getEncoderValueInInches()));
+        telemetry.addData("Left Encoder", "Encoder: " + Double.toString(train1.leftMotors.get(0).getCurrentPosition()));
+        telemetry.addData("right Encoder", "Encoder: " + Double.toString(train1.rightMotors.get(0).getCurrentPosition()));
+        telemetry.addData("raw Encoder", "Encoder: " + Double.toString(train1.getRawEncoderValue()));
 
         if(drive){
             mp.forward = -0.2;
             train1.move(mp);
-            if(train1.getEncoderValue() <= -1200){
-                drive = false;
-            }
+            drive = train1.getEncoderValueInInches() < 9.15;
             telemetry.addData("DriveMode","Driving");
         }else{
             mp.forward = 0;
